@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AURA — Premium Minimalist Catalog</title>
+  
+  <!-- Google Fonts: Inter (Sans-Serif) for modern elegant typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-global: #FAFAFA;
+      --text-main: #111111;
+      --text-muted: #707070;
+      --bg-card: #FFFFFF;
+      --border-color: #EAEAEA;
+      --border-color-dark: #111111;
+      --toast-bg: #111111;
+      --toast-text: #FFFFFF;
+      
+      /* Premium Smooth Transitions */
+      --transition-smooth: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      --transition-fast: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      
+      /* Standard Spacings */
+      --container-max-width: 1440px;
+    }
+
+    /* Base Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-global);
+      color: var(--text-main);
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    button, select {
+      font-family: inherit;
+      color: inherit;
+    }
+
+    /* Helper Layout Container */
+    .container {
+      width: 100%;
+      max-width: var(--container-max-width);
+      margin: 0 auto;
+      padding: 0 80px;
+    }
+
+    /* Sticky Premium Navigation Header */
+    .header {
+      position: sticky;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: rgba(250, 250, 250, 0.8);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border-color);
+      z-index: 100;
+      transition: var(--transition-smooth);
+    }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 90px;
+    }
+
+    /* Minimalist Logo styling */
+    .brand-logo {
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: var(--text-main);
+      position: relative;
+      display: inline-block;
+    }
+
+    /* Aesthetic center categories link */
+    .nav-links {
+      display: flex;
+      gap: 40px;
+      list-style: none;
+    }
+
+    .nav-item-link {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      position: relative;
+      padding: 6px 0;
+      transition: var(--transition-fast);
+    }
+
+    .nav-item-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background-color: var(--text-main);
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .nav-item-link:hover::after,
+    .nav-item-link.active::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+
+    .nav-item-link:hover,
+    .nav-item-link.active {
+      color: var(--text-main);
+    }
+
+    /* Right navigation actions panel */
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+    }
+
+    /* Minimalist Search box styling */
+    .search-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid transparent;
+      padding: 4px 0;
+      transition: var(--transition-smooth);
+    }
+
+    .search-wrapper:focus-within {
+      border-color: var(--border-color-dark);
+    }
+
+    .search-input {
+      background: transparent;
+      border: none;
+      outline: none;
+      font-size: 13px;
+      letter-spacing: 0.5px;
+      width: 0;
+      opacity: 0;
+      transition: var(--transition-smooth);
+    }
+
+    .search-wrapper:hover .search-input,
+    .search-input:focus {
+      width: 160px;
+      opacity: 1;
+      padding-right: 10px;
+    }
+
+    .icon-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px;
+      transition: var(--transition-fast);
+    }
+
+    .icon-btn:hover {
+      transform: scale(1.05);
+    }
+
+    .cart-btn-wrapper {
+      position: relative;
+    }
+
+    .cart-badge {
+      position: absolute;
+      top: -4px;
+      right: -4px;
+      background-color: var(--text-main);
+      color: var(--bg-card);
+      font-size: 9px;
+      font-weight: 700;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition-smooth);
+    }
+
+    .cart-badge.pulse {
+      transform: scale(1.3);
+    }
+
+    /* Header hero banner zone */
+    .hero-banner {
+      padding: 80px 0 40px 0;
+      text-align: center;
+    }
+
+    .hero-title {
+      font-size: 40px;
+      font-weight: 300;
+      letter-spacing: -0.5px;
+      color: var(--text-main);
+      margin-bottom: 8px;
+    }
+
+    .hero-subtitle {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--text-muted);
+      letter-spacing: 0.5px;
+    }
+
+    /* Sticky/Responsive Filter & Sort Bar */
+    .filter-section {
+      border-top: 1px solid var(--border-color);
+      border-bottom: 1px solid var(--border-color);
+      margin-top: 20px;
+    }
+
+    .filter-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 70px;
+    }
+
+    .filter-controls-left {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .filter-dropdown-trigger {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      padding: 10px 24px;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: var(--transition-fast);
+      position: relative;
+    }
+
+    .filter-dropdown-trigger:hover,
+    .filter-dropdown-trigger.active {
+      border-color: var(--border-color-dark);
+    }
+
+    /* Beautiful dropdown option container */
+    .filter-options-menu {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 0;
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+      padding: 12px;
+      list-style: none;
+      min-width: 160px;
+      z-index: 50;
+      display: none;
+      flex-direction: column;
+      gap: 6px;
+      text-align: left;
+    }
+
+    .filter-options-menu.show {
+      display: flex;
+    }
+
+    .filter-menu-item {
+      font-size: 13px;
+      padding: 8px 12px;
+      border-radius: 2px;
+      transition: var(--transition-fast);
+    }
+
+    .filter-menu-item:hover {
+      background-color: var(--bg-global);
+      color: var(--text-main);
+    }
+
+    /* Custom elegant sorting dropdown styling */
+    .sort-control-right {
+      position: relative;
+    }
+
+    .sort-select {
+      appearance: none;
+      -webkit-appearance: none;
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      padding: 10px 40px 10px 24px;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      outline: none;
+      transition: var(--transition-fast);
+    }
+
+    .sort-select:hover {
+      border-color: var(--border-color-dark);
+    }
+
+    .sort-control-right::after {
+      content: '';
+      position: absolute;
+      right: 20px;
+      top: 52%;
+      transform: translateY(-50%);
+      width: 0;
+      height: 0;
+      border-left: 4.5px solid transparent;
+      border-right: 4.5px solid transparent;
+      border-top: 5px solid var(--text-main);
+      pointer-events: none;
+    }
+
+    /* Product grid system */
+    .product-grid-section {
+      padding: 40px 0 100px 0;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-gap: 30px;
+    }
+
+    /* Premium Product Card block */
+    .product-card {
+      background-color: transparent;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      transition: var(--transition-smooth);
+    }
+
+    /* Outer Wrapper with Hidden clipping masks for Quick Add action */
+    .product-image-container {
+      width: 100%;
+      height: 420px;
+      overflow: hidden;
+      position: relative;
+      background-color: #F5F5F5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .product-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: var(--transition-smooth);
+    }
+
+    /* Subtle custom luxury tag */
+    .product-badge {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      background-color: var(--text-main);
+      color: var(--bg-card);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      padding: 4px 10px;
+      text-transform: uppercase;
+      z-index: 10;
+    }
+
+    /* Quick Add Drawer sliding up from bottom of the image */
+    .quick-add-drawer {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+      transform: translateY(101%);
+      transition: var(--transition-smooth);
+      z-index: 15;
+    }
+
+    .quick-add-btn {
+      width: 100%;
+      background-color: var(--text-main);
+      color: var(--bg-card);
+      border: none;
+      padding: 16px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: var(--transition-fast);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .quick-add-btn:hover {
+      background-color: #333333;
+    }
+
+    /* Details area below the image container */
+    .product-info {
+      padding: 20px 0 0 0;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .product-meta-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .product-title {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--text-main);
+      letter-spacing: 0.2px;
+      line-height: 1.3;
+    }
+
+    .product-price {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--text-muted);
+    }
+
+    /* Interactive Hover effects trigger */
+    .product-card:hover .product-image {
+      transform: scale(1.04);
+    }
+
+    .product-card:hover .quick-add-drawer {
+      transform: translateY(0);
+    }
+
+    .product-card:hover {
+      transform: translateY(-4px);
+    }
+
+    /* Footer layout specifications */
+    .footer {
+      background-color: var(--bg-card);
+      border-top: 1px solid var(--border-color);
+      padding: 80px 0;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1.5fr;
+      grid-gap: 80px;
+    }
+
+    .footer-brand-column {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .footer-logo {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 4px;
+    }
+
+    .footer-brand-desc {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      max-width: 340px;
+      line-height: 1.6;
+    }
+
+    .footer-title {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--text-main);
+      margin-bottom: 25px;
+    }
+
+    .footer-links-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .footer-link-item {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      transition: var(--transition-fast);
+    }
+
+    .footer-link-item:hover {
+      color: var(--text-main);
+      padding-left: 2px;
+    }
+
+    /* Premium newsletter block styling */
+    .footer-newsletter-wrapper {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .newsletter-form-container {
+      display: flex;
+      margin-top: 15px;
+      border-bottom: 1px solid var(--border-color-dark);
+      padding-bottom: 8px;
+    }
+
+    .newsletter-text-input {
+      flex: 1;
+      border: none;
+      background: transparent;
+      outline: none;
+      font-size: 13px;
+      padding: 8px 0;
+      color: var(--text-main);
+    }
+
+    .newsletter-submit-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--text-main);
+      transition: var(--transition-fast);
+    }
+
+    .newsletter-submit-btn:hover {
+      color: var(--text-muted);
+      transform: translateX(4px);
+    }
+
+    .footer-copyright-bar {
+      border-top: 1px solid var(--border-color);
+      margin-top: 60px;
+      padding-top: 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: var(--text-muted);
+      letter-spacing: 0.5px;
+    }
+
+    .footer-social-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    .social-anchor {
+      font-size: 12px;
+      transition: var(--transition-fast);
+    }
+
+    .social-anchor:hover {
+      color: var(--text-main);
+    }
+
+    /* Toast system for modern alert delivery */
+    .toast-container {
+      position: fixed;
+      bottom: 40px;
+      right: 40px;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      pointer-events: none;
+    }
+
+    .toast {
+      background-color: var(--toast-bg);
+      color: var(--toast-text);
+      padding: 16px 32px;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: var(--transition-smooth);
+      pointer-events: auto;
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* Dynamic SVG indicator styling */
+    .toast-check-icon {
+      color: #10B981;
+      width: 16px;
+      height: 16px;
+    }
+
+    /* CSS Media Query Adaptations */
+    @media (max-width: 1200px) {
+      .container {
+        padding: 0 40px;
+      }
+      .product-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width: 1024px) {
+      .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 24px;
+      }
+      .footer-grid {
+        grid-template-columns: 1fr;
+        grid-gap: 50px;
+      }
+      .footer-brand-column {
+        align-items: flex-start;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 0 20px;
+      }
+      .header-nav {
+        height: 75px;
+      }
+      .nav-links {
+        display: none; /* Offcanvas or clean hidden state for mobile */
+      }
+      .hero-title {
+        font-size: 30px;
+      }
+      .filter-wrapper {
+        flex-direction: column;
+        height: auto;
+        padding: 20px 0;
+        gap: 15px;
+        align-items: stretch;
+      }
+      .filter-controls-left {
+        flex-wrap: wrap;
+        justify-content: space-between;
+      }
+      .filter-dropdown-trigger {
+        flex: 1;
+        justify-content: center;
+      }
+      .sort-select {
+        width: 100%;
+        text-align: center;
+      }
+      .product-grid {
+        grid-template-columns: 1fr;
+        grid-gap: 40px;
+      }
+      .product-image-container {
+        height: 380px;
+      }
+      .footer-copyright-bar {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER NAVIGATION -->
+  <header class="header">
+    <div class="container">
+      <nav class="header-nav">
+        <!-- Minimalist Logo -->
+        <a href="#" class="brand-logo">AURA</a>
+        
+        <!-- Navigation Menu -->
+        <ul class="nav-links">
+          <li><a href="#" class="nav-item-link">Yeni</a></li>
+          <li><a href="#" class="nav-item-link active">Kataloq</a></li>
+          <li><a href="#" class="nav-item-link">Haqqımızda</a></li>
+        </ul>
+
+        <!-- Functional Actions -->
+        <div class="nav-actions">
+          <div class="search-wrapper">
+            <input type="text" class="search-input" placeholder="Axtarış...">
+            <button class="icon-btn" aria-label="Axtarış">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            </button>
+          </div>
+          
+          <button class="icon-btn cart-btn-wrapper" aria-label="Səbət">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+            <span class="cart-badge" id="cart-badge">0</span>
+          </button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO ZONE -->
+  <section class="hero-banner">
+    <div class="container">
+      <h1 class="hero-title">Evinizin Harmoniyası</h1>
+      <p class="hero-subtitle">Müasir memarlıq və minimalist estetikanın formalaşdırdığı bədii elementlər.</p>
+    </div>
+  </section>
+
+  <!-- FILTER & SORT CONTROLS -->
+  <section class="filter-section">
+    <div class="container">
+      <div class="filter-wrapper">
+        
+        <!-- Dropdown Triggers -->
+        <div class="filter-controls-left">
+          <!-- Filter 1: Size -->
+          <div class="filter-dropdown-trigger" id="filter-size-btn">
+            Ölçü
+            <svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <ul class="filter-options-menu" id="filter-size-menu">
+              <li class="filter-menu-item" data-filter="standart">Standart</li>
+              <li class="filter-menu-item" data-filter="mini">Mini</li>
+              <li class="filter-menu-item" data-filter="large">Böyük (L)</li>
+            </ul>
+          </div>
+
+          <!-- Filter 2: Color -->
+          <div class="filter-dropdown-trigger" id="filter-color-btn">
+            Rəng
+            <svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <ul class="filter-options-menu" id="filter-color-menu">
+              <li class="filter-menu-item" data-filter="qum">Qum Beji</li>
+              <li class="filter-menu-item" data-filter="terrakota">Terrakota</li>
+              <li class="filter-menu-item" data-filter="antrasit">Antrasit</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Right: Modern Sort dropmenu -->
+        <div class="sort-control-right">
+          <select class="sort-select" id="sort-select" aria-label="Sıralama">
+            <option value="popular">Sıralama: Populyar</option>
+            <option value="asc">Ucuzdan Bahaya</option>
+            <option value="desc">Bahadan Ucuza</option>
+          </select>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCT GRID SECTION -->
+  <main class="product-grid-section">
+    <div class="container">
+      <div class="product-grid">
+        
+        <!-- Məhsul 1 -->
+        <article class="product-card">
+          <div class="product-image-container">
+            <span class="product-badge">Yeni</span>
+            <img src="https://images.unsplash.com/photo-1507473885765-e6ed057f782c?q=80&w=600" class="product-image" alt="Aesthetic minimal lamp">
+            <div class="quick-add-drawer">
+              <button class="quick-add-btn" data-name="Minimalist Travertin Lamp">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+                Səbətə At
+              </button>
+            </div>
+          </div>
+          <div class="product-info">
+            <div class="product-meta-row">
+              <h3 class="product-title">Minimalist Travertin Lamp</h3>
+              <span class="product-price">120.00 AZN</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Məhsul 2 -->
+        <article class="product-card">
+          <div class="product-image-container">
+            <img src="https://images.unsplash.com/photo-1592078615290-033ee584e267?q=80&w=600" class="product-image" alt="Boucle lounge chair">
+            <div class="quick-add-drawer">
+              <button class="quick-add-btn" data-name="Bouclé Lounge Chair">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+                Səbətə At
+              </button>
+            </div>
+          </div>
+          <div class="product-info">
+            <div class="product-meta-row">
+              <h3 class="product-title">Bouclé Lounge Chair</h3>
+              <span class="product-price">480.00 AZN</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Məhsul 3 -->
+        <article class="product-card">
+          <div class="product-image-container">
+            <span class="product-badge">Limitli</span>
+            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=600" class="product-image" alt="Architectural coffee table">
+            <div class="quick-add-drawer">
+              <button class="quick-add-btn" data-name="Travertine Coffee Table">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+                Səbətə At
+              </button>
+            </div>
+          </div>
+          <div class="product-info">
+            <div class="product-meta-row">
+              <h3 class="product-title">Travertine Coffee Table</h3>
+              <span class="product-price">310.00 AZN</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Məhsul 4 -->
+        <article class="product-card">
+          <div class="product-image-container">
+            <img src="https://images.unsplash.com/photo-1603006905003-be475563bc59?q=80&w=600" class="product-image" alt="Scented candle duo">
+            <div class="quick-add-drawer">
+              <button class="quick-add-btn" data-name="Organic Scented Candle Duo">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+                Səbətə At
+              </button>
+            </div>
+          </div>
+          <div class="product-info">
+            <div class="product-meta-row">
+              <h3 class="product-title">Organic Scented Candle Duo</h3>
+              <span class="product-price">35.00 AZN</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Məhsul 5 -->
+        <article class="product-card">
+          <div class="product-image-container">
+            <img src="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?q=80&w=600" class="product-image" alt="Minimal design chair">
+            <div class="quick-add-drawer">
+              <button class="quick-add-btn" data-name="Minimal Lounge Chair">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+                Səbətə At
+              </button>
+            </div>
+          </div>
+          <div class="product-info">
+            <div class="product-meta-row">
+              <h3 class="product-title">Minimal Lounge Chair</h3>
+              <span class="product-price">220.00 AZN</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Məhsul 6 -->
+        <article class="product-card">
+          <div class="product-image-container">
+            <img src="https://images.unsplash.com/photo-1612196808214-b8e1d6145a8c?q=80&w=600" class="product-image" alt="Aesthetic carafe">
+            <div class="quick-add-drawer">
+              <button class="quick-add-btn" data-name="Organic Glass Carafe">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+                Səbətə At
+              </button>
+            </div>
+          </div>
+          <div class="product-info">
+            <div class="product-meta-row">
+              <h3 class="product-title">Organic Glass Carafe</h3>
+              <span class="product-price">45.00 AZN</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Məhsul 7 -->
+        <article class="product-card">
+          <div class="product-image-container">
+            <span class="product-badge">Populyar</span>
+            <img src="https://images.unsplash.com/photo-1541701494587-cb58502866ab?q=80&w=600" class="product-image" alt="Abstract painting">
+            <div class="quick-add-drawer">
+              <button class="quick-add-btn" data-name="Textured Abstract Canvas">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+                Səbətə At
+              </button>
+            </div>
+          </div>
+          <div class="product-info">
+            <div class="product-meta-row">
+              <h3 class="product-title">Textured Abstract Canvas</h3>
+              <span class="product-price">180.00 AZN</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Məhsul 8 -->
+        <article class="product-card">
+          <div class="product-image-container">
+            <img src="https://images.unsplash.com/photo-1554188248-986adbb73be4?q=80&w=600" class="product-image" alt="Aesthetic sculpture">
+            <div class="quick-add-drawer">
+              <button class="quick-add-btn" data-name="Archival Clay Sculpture">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+                Səbətə At
+              </button>
+            </div>
+          </div>
+          <div class="product-info">
+            <div class="product-meta-row">
+              <h3 class="product-title">Archival Clay Sculpture</h3>
+              <span class="product-price">75.00 AZN</span>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- TOAST NOTIFICATION STACK -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        
+        <!-- Brand Info -->
+        <div class="footer-brand-column">
+          <div class="footer-logo">AURA</div>
+          <p class="footer-brand-desc">Xırda detallarla məkana rəh bəxş edən, premium və minimalist mebel və həyat tərzi aksesuarları.</p>
+        </div>
+
+        <!-- Sürətli keçidlər -->
+        <div class="footer-brand-column">
+          <h4 class="footer-title">Kataloq</h4>
+          <ul class="footer-links-list">
+            <li><a href="#" class="footer-link-item">Yeni məhsullar</a></li>
+            <li><a href="#" class="footer-link-item">Dekor elementləri</a></li>
+            <li><a href="#" class="footer-link-item">Kolleksiyalar</a></li>
+            <li><a href="#" class="footer-link-item">Haqqımızda</a></li>
+          </ul>
+        </div>
+
+        <!-- Newsletter box -->
+        <div class="footer-newsletter-wrapper">
+          <h4 class="footer-title">Yeniliklərə abunə olun</h4>
+          <p class="footer-brand-desc">AURA dünyasında baş verən ən son yeniliklərdən və eksklüziv endirimlərdən ilk siz xəbərdar olun.</p>
+          <form class="newsletter-form-container" onsubmit="event.preventDefault(); showNewsletterToast();">
+            <input type="email" class="newsletter-text-input" placeholder="E-poçt ünvanınız" required aria-label="E-poçt ünvanınız">
+            <button type="submit" class="newsletter-submit-btn">Qoşul</button>
+          </form>
+        </div>
+
+      </div>
+
+      <!-- Copyright bar -->
+      <div class="footer-copyright-bar">
+        <p>&copy; 2026 AURA Studio. Bütün hüquqlar qorunur.</p>
+        <div class="footer-social-links">
+          <a href="#" class="social-anchor">Instagram</a>
+          <a href="#" class="social-anchor">Pinterest</a>
+          <a href="#" class="social-anchor">Journal</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Simple state storage
+    let cartItemCount = 0;
+
+    // Toast Manager for smooth notifications
+    function createToast(message) {
+      const toastContainer = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      
+      // Minimalist SVG check icon
+      toast.innerHTML = `
+        <svg class="toast-check-icon" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l5-5z" clip-rule="evenodd"/>
+        </svg>
+        <span>${message}</span>
+      `;
+      
+      toastContainer.appendChild(toast);
+      
+      // Smooth trigger entry
+      setTimeout(() => {
+        toast.classList.add('show');
+      }, 50);
+
+      // Dismiss after 3.5s
+      setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => {
+          toastContainer.removeChild(toast);
+        }, 500);
+      }, 3500);
+    }
+
+    // Incrementor function for Cart adding
+    const addButtons = document.querySelectorAll('.quick-add-btn');
+    const badge = document.getElementById('cart-badge');
+
+    addButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        const productName = this.getAttribute('data-name');
+        cartItemCount++;
+        
+        // Update visual badge
+        badge.textContent = cartItemCount;
+        badge.classList.add('pulse');
+        
+        // Remove scale pulse class after transition
+        setTimeout(() => {
+          badge.classList.remove('pulse');
+        }, 400);
+
+        // Notify client
+        createToast(`${productName} səbətə əlavə olundu.`);
+      });
+    });
+
+    // Custom Interactive Dropdowns for elegant size and color selection
+    function setupDropdown(triggerId, menuId) {
+      const trigger = document.getElementById(triggerId);
+      const menu = document.getElementById(menuId);
+
+      trigger.addEventListener('click', function(e) {
+        // Prevent event propagation so clicking trigger toggles correctly
+        e.stopPropagation();
+        
+        // Toggle active menu
+        menu.classList.toggle('show');
+        trigger.classList.toggle('active');
+
+        // Close other dropdowns
+        const allMenus = document.querySelectorAll('.filter-options-menu');
+        const allTriggers = document.querySelectorAll('.filter-dropdown-trigger');
+        
+        allMenus.forEach(m => {
+          if (m !== menu) m.classList.remove('show');
+        });
+        allTriggers.forEach(t => {
+          if (t !== trigger) t.classList.remove('active');
+        });
+      });
+
+      // Selection feedback within dropdown options
+      const items = menu.querySelectorAll('.filter-menu-item');
+      items.forEach(item => {
+        item.addEventListener('click', function(e) {
+          e.stopPropagation();
+          const selectedText = this.textContent;
+          trigger.firstChild.textContent = `${selectedText} `;
+          menu.classList.remove('show');
+          trigger.classList.remove('active');
+          
+          createToast(`Filtrləndi: ${selectedText}`);
+        });
+      });
+    }
+
+    // Initialize Size & Color filters
+    setupDropdown('filter-size-btn', 'filter-size-menu');
+    setupDropdown('filter-color-btn', 'filter-color-menu');
+
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', function() {
+      document.querySelectorAll('.filter-options-menu').forEach(menu => {
+        menu.classList.remove('show');
+      });
+      document.querySelectorAll('.filter-dropdown-trigger').forEach(trigger => {
+        trigger.classList.remove('active');
+      });
+    });
+
+    // Sort order visual toast feedback
+    document.getElementById('sort-select').addEventListener('change', function() {
+      const orderText = this.options[this.selectedIndex].text;
+      createToast(`Sıralama yeniləndi: ${orderText}`);
+    });
+
+    // Newsletter feedback
+    function showNewsletterToast() {
+      createToast("Təşəkkür edirik! Abunəliyiniz təsdiqləndi.");
+      document.querySelector('.newsletter-text-input').value = '';
+    }
+  </script>
+</body>
+</html>
